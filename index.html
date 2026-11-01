@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>Opening Obsidian…</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 3em 1em; text-align: center; color: #222; background: #fff; }
+    @media (prefers-color-scheme: dark) { body { color: #ddd; background: #111; } a { color: #9cf; } }
+  </style>
+</head>
+<body>
+  <!-- Forwards https://www.matejkala.com/obsidian-link/?vault=…&file=… to obsidian://open?vault=…&file=…
+       so Obsidian links survive Google Calendar, which keeps only web links. -->
+  <p>Opening Obsidian… <a id="open">Open it manually</a></p>
+  <script>
+    var target = 'obsidian://open' + location.search;
+    document.getElementById('open').href = target;
+    location.replace(target);
+  </script>
+</body>
+</html>
