@@ -14,11 +14,19 @@
 <body>
   <!-- Forwards https://www.matejkala.com/obsidian-link/?vault=…&file=… to obsidian://open?vault=…&file=…
        so Obsidian links survive Google Calendar, which keeps only web links. -->
-  <p>Opening Obsidian… <a id="open">Open it manually</a></p>
+  <p id="status">Opening Obsidian… <a id="open">Open it manually</a></p>
   <script>
-    var target = 'obsidian://open' + location.search;
-    document.getElementById('open').href = target;
-    location.replace(target);
+    // Forwards only vault and file, so a crafted link can't reach other open parameters such as path.
+    var params = new URLSearchParams(location.search);
+    var vault = params.get('vault');
+    var file = params.get('file');
+    if (vault && file) {
+      var target = 'obsidian://open?vault=' + encodeURIComponent(vault) + '&file=' + encodeURIComponent(file);
+      document.getElementById('open').href = target;
+      location.replace(target);
+    } else {
+      document.getElementById('status').textContent = 'Not an Obsidian link.';
+    }
   </script>
 </body>
 </html>
